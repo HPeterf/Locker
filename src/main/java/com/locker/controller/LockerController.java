@@ -32,7 +32,6 @@ public class LockerController {
 	private static final String JSP_LOCKERRESULT = "lockerresult";
 
 	private static final String POST_PARAM_ADDLOCKER_RESULT = "name";
-	// private static final String POST_PARAM_LOCKERMOD_RESULT = "number";
 
 	private static final Logger logger = LoggerFactory.getLogger(LockerController.class);
 
@@ -87,12 +86,6 @@ public class LockerController {
 		return modelAndView;
 	}
 
-	// @RequestMapping("/findlocker")
-	// public String findlocker(Long number, Model model) {
-	// model.addAttribute("lockers", service.findLocker(number));
-	// return "findlocker";
-	// }
-
 	@RequestMapping(value = ROUTING_LOCKERMOD, method = RequestMethod.GET)
 	public ModelAndView modLocker() {
 		ModelAndView modelAndView = new ModelAndView(JSP_LOCKERMOD);
@@ -121,9 +114,6 @@ public class LockerController {
 	public ModelAndView lockerResult(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,
 			final Long number) {
 
-		String resultId = "result";
-		String errorId = "error";
-		String errorHeader = "Error!";
 		ModelAndView modelAndView = new ModelAndView(JSP_LOCKERRESULT);
 		Employee employee = new Employee(name);
 		Locker locker = new Locker(number);
@@ -135,9 +125,9 @@ public class LockerController {
 		} catch (Exception e) {
 			result = e.toString();
 
-			modelAndView.addObject(errorId, errorHeader);
+			modelAndView.addObject("error", "Error!");
 		}
-		modelAndView.addObject(resultId, result);
+		modelAndView.addObject("result", result);
 		return modelAndView;
 	}
 }

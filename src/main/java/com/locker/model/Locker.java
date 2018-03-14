@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "Lockers")
 @Table(name = "Lockers")
-public class Lockers implements Serializable {
+public class Locker implements Serializable {
 
 	private static final long serialVersionUID = 2335980805649334694L;
 
@@ -38,11 +38,11 @@ public class Lockers implements Serializable {
 		this.employee = employee;
 	}
 
-	public Lockers() {
+	public Locker() {
 
 	}
 
-	public Lockers(Long number) {
+	public Locker(Long number) {
 		this.number = number;
 	}
 
@@ -64,7 +64,7 @@ public class Lockers implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Lockers [number=" + number + "]";
+		return "Locker [number=" + number + "]";
 	}
 
 }

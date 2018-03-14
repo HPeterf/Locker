@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.locker.model.Employee;
-import com.locker.model.Lockers;
+import com.locker.model.Locker;
 import com.locker.service.EmployeesService;
 import com.locker.service.LockersService;
 
@@ -32,7 +32,7 @@ public class LockerController {
 	private static final String JSP_LOCKERRESULT = "lockerresult";
 
 	private static final String POST_PARAM_ADDLOCKER_RESULT = "name";
-	private static final String POST_PARAM_LOCKERMOD_RESULT = "number";
+	// private static final String POST_PARAM_LOCKERMOD_RESULT = "number";
 
 	private static final Logger logger = LoggerFactory.getLogger(LockerController.class);
 
@@ -51,7 +51,7 @@ public class LockerController {
 
 	@RequestMapping(value = ROUTING_EMPLIST, method = RequestMethod.GET)
 	public ModelAndView listEmployees() {
-		ModelAndView modelAndView = null;
+		ModelAndView modelAndView;
 		try {
 			modelAndView = new ModelAndView(JSP_EMPLIST);
 			modelAndView.addObject("employees", empService.listEmployees());
@@ -71,16 +71,27 @@ public class LockerController {
 	@RequestMapping(value = ROUTING_FINDLOCKER, method = RequestMethod.GET)
 	public ModelAndView findLocker(Long number) {
 
-		ModelAndView modelAndView = null;
+		// Lockers locker = new Lockers();
+		// number = locker.getNumber();
+		// locker.setNumber(number);
+
+		ModelAndView modelAndView;
 		try {
 			modelAndView = new ModelAndView(JSP_FINDLOCKER);
-			modelAndView.addObject("locker", service.findLocker(number));
+			modelAndView.addObject("lockers", service.findLocker(number));
+			// logger.info(number.toString());
 		} catch (Exception e) {
 			logger.error("exception during findLocker()", e);
-			// modelAndView = new ModelAndView("/error");
+			modelAndView = new ModelAndView("/error");
 		}
 		return modelAndView;
 	}
+
+	// @RequestMapping("/findlocker")
+	// public String findlocker(Long number, Model model) {
+	// model.addAttribute("lockers", service.findLocker(number));
+	// return "findlocker";
+	// }
 
 	@RequestMapping(value = ROUTING_LOCKERMOD, method = RequestMethod.GET)
 	public ModelAndView modLocker() {
@@ -92,7 +103,7 @@ public class LockerController {
 	public ModelAndView lockerModResult(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,
 			final Long number) {
 		ModelAndView modelAndView = new ModelAndView(JSP_LOCKERMOD_RESULT);
-		Lockers locker = new Lockers(number);
+		Locker locker = new Locker(number);
 		Employee employee = new Employee(name);
 		String result;
 		try {
@@ -115,7 +126,7 @@ public class LockerController {
 		String errorHeader = "Error!";
 		ModelAndView modelAndView = new ModelAndView(JSP_LOCKERRESULT);
 		Employee employee = new Employee(name);
-		Lockers locker = new Lockers(number);
+		Locker locker = new Locker(number);
 		String result;
 
 		try {

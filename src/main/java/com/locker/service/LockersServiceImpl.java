@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.locker.model.Employee;
-import com.locker.model.Lockers;
+import com.locker.model.Locker;
 import com.locker.repository.EmployeesRepository;
 import com.locker.repository.LockersRepository;
 import com.locker.service.exception.EmployeeDoesNotExistsException;
 import com.locker.service.exception.LockerDoesNotExistsException;
+import com.locker.service.exception.LockerException;
 
 @Service
 public class LockersServiceImpl implements LockersService {
@@ -33,7 +34,7 @@ public class LockersServiceImpl implements LockersService {
 	}
 
 	@Override
-	public List<Lockers> listLockers() {
+	public List<Locker> listLockers() {
 		return lockersRepo.findAll();
 	}
 
@@ -47,29 +48,33 @@ public class LockersServiceImpl implements LockersService {
 	}
 
 	@Override
-	public Lockers findLocker(Long number) {
-		return lockersRepo.getLockerByNumber(number);
+	public Locker findLocker(/* String name, */ Long number) {
+		return lockersRepo.findByNumber(number);
 	}
 
 	@Override
-	public String addNewLocker(Employee employee, Lockers locker) throws Exception {
+	public String addNewLocker(Employee employee, Locker locker) throws Exception {
 		List<Employee> emplist = employeeRepo.findAll();
 
 		for (Employee e : emplist) {
-			if (((e.getName()).equals(employee))) {
+			if ((!(e.getName()).equals(employee.getName()))) {
 				throw new EmployeeDoesNotExistsException();
 			}
 		}
-		List<Lockers> lockerList = lockersRepo.findAll();
-		for (Lockers l : lockerList) {
+		List<Locker> lockerList = lockersRepo.findAll();
+		for (Locker l : lockerList) {
 			logger.info("The locker: {}", l.getNumber());
-			if (((l.getNumber()).equals(locker))) {
-				throw new LockerDoesNotExistsException();
-			} else {
-				lockersRepo.save(locker);
+			if (((l.getNumber()).equals(locker.getNumber()))) {
+				throw new LockerException();
+			}
+
+			try {
+
+				lockersRepo.updateLockerNumber(locker.getNumber());
 				locker.setEmployee(employee);
 				employee.setLocker(locker);
-
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 

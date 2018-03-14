@@ -29,13 +29,13 @@ public class Employee implements Serializable {
 	private String name;
 
 	@OneToOne
-	private Lockers locker;
+	private Locker locker;
 
-	public Lockers getLocker() {
+	public Locker getLocker() {
 		return locker;
 	}
 
-	public void setLocker(Lockers locker) {
+	public void setLocker(Locker locker) {
 		this.locker = locker;
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
 
 import com.locker.model.Employee;
-import com.locker.model.Lockers;
+import com.locker.model.Locker;
 import com.locker.repository.EmployeesRepository;
 import com.locker.repository.LockersRepository;
 import com.locker.service.exception.EmptyFieldException;
@@ -52,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public String addEmployee(Employee employee, Lockers locker) throws NamesException {
+	public String addEmployee(Employee employee, Locker locker) throws NamesException {
 
 		if (employee.getName().isEmpty()) {
 			throw new EmptyFieldException();

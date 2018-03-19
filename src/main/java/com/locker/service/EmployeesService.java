@@ -10,7 +10,7 @@ public interface EmployeesService {
 
 	public String addEmployee(Employee employee, Locker locker) throws NamesException;
 
-	public void deleteEmployee(Employee employee);
+	public void deleteEmployee(Employee employee) throws Exception;
 
 	public List<Employee> listEmployees() throws NamesException;
 

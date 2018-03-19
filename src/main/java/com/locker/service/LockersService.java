@@ -9,7 +9,7 @@ public interface LockersService {
 
 	public String addNewLocker(Employee employees, Locker locker) throws Exception;
 
-	public void deleteLocker(Employee employee) throws Exception;
+	public void deleteLocker(Locker locker) throws Exception;
 
 	public List<Locker> listLockers();
 

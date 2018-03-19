@@ -2,6 +2,7 @@ package com.locker.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -23,12 +23,12 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@NotNull
+	// @NotNull
 	@NotBlank
 	@Column(name = "name", unique = true)
 	private String name;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private Locker locker;
 
 	public Locker getLocker() {

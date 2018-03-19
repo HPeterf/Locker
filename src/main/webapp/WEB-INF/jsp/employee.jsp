@@ -37,6 +37,21 @@
 	
 	<br>
 	<br>
+	
+	<form action="deletelockerwithemployee" method="GET">
+	<b>Delete Employee:</b>
+	<br>
+	<b>Enter Employee name:</b>
+	
+	<input type="text" name="name" required />
+	<p>
+		<input type="submit" name="Submit" value="Submit" onclick="delete">
+	</p>
+	</form>
+	
+	
+	<br>
+	<br>
 	<a href="/lockermod">Click here to change your Locker number</a>
 
 	<br>	

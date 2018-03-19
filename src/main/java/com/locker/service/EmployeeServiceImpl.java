@@ -95,13 +95,23 @@ public class EmployeeServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public void deleteEmployee(Employee employees) {
+	public void deleteEmployee(Employee employee) throws Exception {
+
+		List<Employee> emplist = employeeRepo.findAll();
+
 		try {
-			employeeRepo.delete(employees.getId());
+
+			for (Employee employee2 : emplist) {
+
+				emplist.removeIf(e -> e.getName().equals(employee.getName()));
+				// employeeRepo.delete(employee);
+				// lockerRepo.delete(locker);
+			}
 
 		} catch (IllegalArgumentException e) {
 			logger.error("Delete failed: " + e.toString());
 		}
+		// return "delete successful!";
 	}
 
 	@Override

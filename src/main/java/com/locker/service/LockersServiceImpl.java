@@ -12,7 +12,6 @@ import com.locker.model.Locker;
 import com.locker.repository.EmployeesRepository;
 import com.locker.repository.LockersRepository;
 import com.locker.service.exception.EmployeeDoesNotExistsException;
-import com.locker.service.exception.LockerDoesNotExistsException;
 import com.locker.service.exception.LockerException;
 
 @Service
@@ -39,12 +38,19 @@ public class LockersServiceImpl implements LockersService {
 	}
 
 	@Override
-	public void deleteLocker(Employee employee) throws Exception {
-		if (employee.getLocker() == null) {
-			throw new LockerDoesNotExistsException();
+	public void deleteLocker(Locker locker) throws Exception {
+
+		List<Locker> lockerList = lockersRepo.findAll();
+
+		try {
+			for (Locker locker2 : lockerList) {
+				lockerList.removeIf(l -> l.getNumber().equals(locker.getNumber()));
+			}
+
+			// lockersRepo.delete(locker);
+		} catch (IllegalArgumentException e) {
+			logger.error("Delete failed: " + e.toString());
 		}
-		employee.setLocker(null);
-		employeeRepo.save(employee);
 	}
 
 	@Override

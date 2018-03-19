@@ -23,6 +23,7 @@ public class LockerController {
 	private static final String ROUTING_LOCKERMOD = "/lockermod";
 	private static final String ROUTING_LOCKERMOD_RESULT = "/lockermodresult";
 	private static final String ROUTING_LOCKERRESULT = "/lockerresult";
+	private static final String ROUTING_DELETELOCKER = "/deletelockerwithemployee";
 
 	private static final String JSP_ADDLOCKER = "employee";
 	private static final String JSP_EMPLIST = "employeelist";
@@ -30,6 +31,7 @@ public class LockerController {
 	private static final String JSP_LOCKERMOD = "lockermod";
 	private static final String JSP_LOCKERMOD_RESULT = "lockermodresult";
 	private static final String JSP_LOCKERRESULT = "lockerresult";
+	private static final String JSP_DELETELOCKER = "deletelockerwithemployee";
 
 	private static final String POST_PARAM_ADDLOCKER_RESULT = "name";
 
@@ -129,5 +131,29 @@ public class LockerController {
 		}
 		modelAndView.addObject("result", result);
 		return modelAndView;
+	}
+
+	@RequestMapping(value = ROUTING_DELETELOCKER, method = RequestMethod.GET)
+	public ModelAndView deleteLockerWithEmployee(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,
+			final Long number) {
+
+		ModelAndView modelAndView = new ModelAndView(JSP_DELETELOCKER);
+		Employee employee = new Employee(name);
+		Locker locker = new Locker(number);
+
+		try {
+			service.deleteLocker(locker);
+			empService.deleteEmployee(employee);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			modelAndView.addObject("error", "Error!");
+		}
+
+		String res = "The result is: ";
+		modelAndView.addObject("result", res);
+		return modelAndView;
+
 	}
 }

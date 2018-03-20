@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity(name = "Employees")
 @Table(name = "Employees")
 public class Employee implements Serializable {
@@ -24,11 +22,11 @@ public class Employee implements Serializable {
 	private long id;
 
 	// @NotNull
-	@NotBlank
+	// @NotBlank
 	@Column(name = "name", unique = true)
 	private String name;
 
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Locker locker;
 
 	public Locker getLocker() {

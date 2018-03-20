@@ -2,8 +2,6 @@ package com.locker.repository;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,10 +18,10 @@ public interface LockersRepository extends JpaRepository<Locker, Long> {
 	@Query(value = "select l from Lockers l where l.number = :number")
 	public Locker findByNumber(@Param("number") Long number);
 
-	@Transactional
-	@Modifying
-	@Query("UPDATE Lockers l SET l.number = :number")
-	public void updateLockerNumber(@Param("number") long number);
+	// @Transactional
+	// @Modifying
+	// @Query("UPDATE Lockers l SET l.number = :number")
+	// public void update(/* @Param("number") */ long number);
 
 	@Modifying
 	@Query("delete from Lockers l where l.number = :number")

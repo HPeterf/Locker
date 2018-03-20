@@ -99,19 +99,17 @@ public class EmployeeServiceImpl implements EmployeesService {
 
 		List<Employee> emplist = employeeRepo.findAll();
 
-		try {
+		for (Employee e : emplist) {
+			if (e.getName().equals(employee.getName())) {
+				try {
+					employeeRepo.delete(e);
+					logger.info("employee save successful");
 
-			for (Employee employee2 : emplist) {
-
-				emplist.removeIf(e -> e.getName().equals(employee.getName()));
-				// employeeRepo.delete(employee);
-				// lockerRepo.delete(locker);
+				} catch (IllegalArgumentException ex) {
+					logger.error("Delete failed: " + ex.toString());
+				}
 			}
-
-		} catch (IllegalArgumentException e) {
-			logger.error("Delete failed: " + e.toString());
 		}
-		// return "delete successful!";
 	}
 
 	@Override

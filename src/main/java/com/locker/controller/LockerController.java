@@ -17,21 +17,15 @@ import com.locker.service.LockersService;
 @Controller
 public class LockerController {
 
-	private static final String ROUTING_ADDLOCKER = "/employee";
-	private static final String ROUTING_EMPLIST = "/employeelist";
 	private static final String ROUTING_FINDLOCKER = "/findlocker";
 	private static final String ROUTING_LOCKERMOD = "/lockermod";
 	private static final String ROUTING_LOCKERMOD_RESULT = "/lockermodresult";
 	private static final String ROUTING_LOCKERRESULT = "/lockerresult";
-	private static final String ROUTING_DELETELOCKER = "/deletelockerwithemployee";
 
-	private static final String JSP_ADDLOCKER = "employee";
-	private static final String JSP_EMPLIST = "employeelist";
 	private static final String JSP_FINDLOCKER = "findlocker";
 	private static final String JSP_LOCKERMOD = "lockermod";
 	private static final String JSP_LOCKERMOD_RESULT = "lockermodresult";
 	private static final String JSP_LOCKERRESULT = "lockerresult";
-	private static final String JSP_DELETELOCKER = "deletelockerwithemployee";
 
 	private static final String POST_PARAM_ADDLOCKER_RESULT = "name";
 
@@ -50,37 +44,13 @@ public class LockerController {
 		this.empService = empService;
 	}
 
-	@RequestMapping(value = ROUTING_EMPLIST, method = RequestMethod.GET)
-	public ModelAndView listEmployees() {
-		ModelAndView modelAndView;
-		try {
-			modelAndView = new ModelAndView(JSP_EMPLIST);
-			modelAndView.addObject("employees", empService.listEmployees());
-		} catch (Exception e) {
-			modelAndView = new ModelAndView("/error");
-		}
-
-		return modelAndView;
-	}
-
-	@RequestMapping(value = ROUTING_ADDLOCKER, method = RequestMethod.GET)
-	public ModelAndView addLocker() {
-		ModelAndView modelAndView = new ModelAndView(JSP_ADDLOCKER);
-		return modelAndView;
-	}
-
 	@RequestMapping(value = ROUTING_FINDLOCKER, method = RequestMethod.GET)
 	public ModelAndView findLocker(Long number) {
-
-		// Lockers locker = new Lockers();
-		// number = locker.getNumber();
-		// locker.setNumber(number);
 
 		ModelAndView modelAndView;
 		try {
 			modelAndView = new ModelAndView(JSP_FINDLOCKER);
 			modelAndView.addObject("lockers", service.findLocker(number));
-			// logger.info(number.toString());
 		} catch (Exception e) {
 			logger.error("exception during findLocker()", e);
 			modelAndView = new ModelAndView("/error");
@@ -131,29 +101,5 @@ public class LockerController {
 		}
 		modelAndView.addObject("result", result);
 		return modelAndView;
-	}
-
-	@RequestMapping(value = ROUTING_DELETELOCKER, method = RequestMethod.GET)
-	public ModelAndView deleteLockerWithEmployee(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,
-			final Long number) {
-
-		ModelAndView modelAndView = new ModelAndView(JSP_DELETELOCKER);
-		Employee employee = new Employee(name);
-		Locker locker = new Locker(number);
-
-		try {
-			service.deleteLocker(locker);
-			empService.deleteEmployee(employee);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			modelAndView.addObject("error", "Error!");
-		}
-
-		String res = "The result is: ";
-		modelAndView.addObject("result", res);
-		return modelAndView;
-
 	}
 }

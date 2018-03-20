@@ -23,11 +23,11 @@ public class Locker implements Serializable {
 	private long id;
 
 	// @NotNull
-	@Column(name = "number", unique = true)
+	@Column(name = "number"/* unique = true */)
 	@Min(1)
 	private Long number;
 
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Employee employee;
 
 	public Employee getEmployee() {

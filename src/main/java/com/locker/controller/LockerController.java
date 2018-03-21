@@ -47,10 +47,13 @@ public class LockerController {
 	@RequestMapping(value = ROUTING_FINDLOCKER, method = RequestMethod.GET)
 	public ModelAndView findLocker(Long number) {
 
+		Locker locker = new Locker(number);
 		ModelAndView modelAndView;
 		try {
 			modelAndView = new ModelAndView(JSP_FINDLOCKER);
-			modelAndView.addObject("lockers", service.findLocker(number));
+			modelAndView.addObject("lockers", service.findLocker(locker.getNumber()));
+			logger.info("locker: " + service.findLocker(locker.getNumber()));
+			// modelAndView.addObject("locker", locker.getEmployee().getName());
 		} catch (Exception e) {
 			logger.error("exception during findLocker()", e);
 			modelAndView = new ModelAndView("/error");

@@ -2,6 +2,9 @@ package com.locker.service;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class EmployeeServiceImpl implements EmployeesService {
 
 	private EmployeesRepository employeeRepo;
 	private LockersRepository lockerRepo;
+
+	@PersistenceContext
+	private EntityManager em;
 
 	@Autowired
 	public void setLockerRepo(LockersRepository lockerRepo) {
@@ -116,4 +122,13 @@ public class EmployeeServiceImpl implements EmployeesService {
 	public Employee findEmployee(String name) {
 		return employeeRepo.findByName(name);
 	}
+	//
+	// @Override
+	// public List<Employee> findByLocker(Locker locker) {
+	//
+	// TypedQuery query = em.createQuery("select from Employees e where e.locker=?1
+	// ", Employee.class);
+	// query.setParameter(1, locker);
+	// return query.getResultList();
+	// }
 }

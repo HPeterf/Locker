@@ -14,10 +14,10 @@
 			<th>Locker No.</th>
 		</tr>
 
-		<c:forEach items="${lockers}" var="locker">
+		<c:forEach items="${locker}" var="locker">
 			<tr>
-				<td><c:out value="${lockers.employee.name}" /></td>
-				<td><c:out value="${lockers.number}" /></td>
+				<td><c:out value="${locker.employee.name}" /></td>
+				<td><c:out value="${locker.number}" /></td>
 			</tr>
 			</c:forEach>
 	</table>

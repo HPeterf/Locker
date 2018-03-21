@@ -31,7 +31,7 @@
 	
 	<input type="number" name="locker" required />
 	<p>
-		<input type="submit" name="Submit" value="Submit">
+		<input type="submit" name="Submit" value="Find Employee">
 	</p>
 	</form>
 	
@@ -45,7 +45,7 @@
 	
 	<input type="text" name="name" required />
 	<p>
-		<input type="submit" name="Submit" value="Submit" onclick="delete">
+		<input type="submit" name="Submit" value="Delete" onclick="delete">
 	</p>
 	</form>
 	

@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.locker.model.Employee;
 import com.locker.model.Locker;
-import com.locker.repository.EmployeesRepository;
 import com.locker.repository.LockersRepository;
+import com.locker.service.exception.EmployeeDoesNotExistsException;
+import com.locker.service.exception.LockerException;
 
 @Service
 public class LockersServiceImpl implements LockersService {
@@ -18,16 +19,10 @@ public class LockersServiceImpl implements LockersService {
 	private static final Logger logger = LoggerFactory.getLogger(LockersServiceImpl.class);
 
 	private LockersRepository lockersRepo;
-	private EmployeesRepository employeeRepo;
 
 	@Autowired
 	public void setLockersRepo(LockersRepository lockersRepo) {
 		this.lockersRepo = lockersRepo;
-	}
-
-	@Autowired
-	public void setEmployeeRepo(EmployeesRepository employeeRepo) {
-		this.employeeRepo = employeeRepo;
 	}
 
 	@Override
@@ -49,43 +44,48 @@ public class LockersServiceImpl implements LockersService {
 					logger.error("Delete failed: " + e.toString());
 				}
 			}
-
 		}
 	}
 
 	@Override
 	public Locker findLocker(Long number) {
+
+		List<Locker> lockerList = lockersRepo.findAll();
+
+		for (Locker l : lockerList) {
+			if (l.getNumber().equals(number)) {
+				return lockersRepo.findByNumber(l.getNumber());
+
+			}
+			logger.info("lockerservice: " + l.getNumber());
+			logger.info("number: " + number);
+		}
 		return lockersRepo.findByNumber(number);
 	}
 
 	@Override
 	public String addNewLocker(Employee employee, Locker locker) throws Exception {
-		// List<Employee> emplist = employeeRepo.findAll();
-
-		// for (Employee e : emplist) {
-		// if (e.getName().equals(employee.getName())) {
-		// throw new EmployeeDoesNotExistsException();
-		// }
 
 		List<Locker> lockerList = lockersRepo.findAll();
 		for (Locker l : lockerList) {
 			logger.info("The locker: {}", l.getNumber());
 			logger.info("New locker: " + locker.getNumber());
 			if (((l.getNumber()).equals(locker.getNumber()))) {
-				// throw new LockerException();
+				throw new LockerException();
+			}
+			try {
 
-				try {
-
+				if ((l.getEmployee().getName()).equals(employee.getName())) {
 					l.setNumber(locker.getNumber());
 					logger.info("New locker: " + locker.getNumber());
-					lockersRepo.save(locker);
-					locker.setEmployee(employee);
-					employee.setLocker(locker);
-				} catch (Exception ex) {
-					ex.printStackTrace();
+					logger.info("l is: " + l.getNumber());
+					lockersRepo.save(l);
+				} else {
+					throw new EmployeeDoesNotExistsException();
 				}
+			} catch (Exception ex) {
+				ex.toString();
 			}
-
 		}
 		return "save successful";
 	}

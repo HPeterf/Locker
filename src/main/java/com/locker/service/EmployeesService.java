@@ -16,4 +16,6 @@ public interface EmployeesService {
 
 	public Employee findEmployee(String name);
 
+	// public List<Employee> findByLocker(Locker locker);
+
 }

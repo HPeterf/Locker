@@ -13,6 +13,7 @@ import com.locker.model.Employee;
 import com.locker.model.Locker;
 import com.locker.service.EmployeesService;
 import com.locker.service.LockersService;
+import com.locker.service.exception.LockerException;
 
 @Controller
 public class LockerController {
@@ -47,13 +48,11 @@ public class LockerController {
 	@RequestMapping(value = ROUTING_FINDLOCKER, method = RequestMethod.GET)
 	public ModelAndView findLocker(Long number) {
 
+		ModelAndView modelAndView = new ModelAndView(JSP_FINDLOCKER);
 		Locker locker = new Locker(number);
-		ModelAndView modelAndView;
+
 		try {
-			modelAndView = new ModelAndView(JSP_FINDLOCKER);
-			modelAndView.addObject("lockers", service.findLocker(locker.getNumber()));
-			logger.info("locker: " + service.findLocker(locker.getNumber()));
-			// modelAndView.addObject("locker", locker.getEmployee().getName());
+			modelAndView.addObject("lockers", service.search(locker));
 		} catch (Exception e) {
 			logger.error("exception during findLocker()", e);
 			modelAndView = new ModelAndView("/error");
@@ -87,7 +86,7 @@ public class LockerController {
 
 	@RequestMapping(value = ROUTING_LOCKERRESULT, method = RequestMethod.POST)
 	public ModelAndView lockerResult(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,
-			final Long number) {
+			final Long number) throws LockerException {
 
 		ModelAndView modelAndView = new ModelAndView(JSP_LOCKERRESULT);
 		Employee employee = new Employee(name);
@@ -98,7 +97,8 @@ public class LockerController {
 			result = empService.addEmployee(employee, locker);
 
 		} catch (Exception e) {
-			result = e.toString();
+			logger.error(e.toString());
+			result = "Something went wrong!";
 
 			modelAndView.addObject("error", "Error!");
 		}

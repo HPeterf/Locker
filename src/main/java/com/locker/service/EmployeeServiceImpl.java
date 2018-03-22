@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.locker.repository.LockersRepository;
 import com.locker.service.exception.EmptyFieldException;
 import com.locker.service.exception.InsertFailedException;
 import com.locker.service.exception.LockerDoesNotExistsException;
+import com.locker.service.exception.LockerException;
 import com.locker.service.exception.NamesException;
 
 @Service
@@ -93,6 +95,9 @@ public class EmployeeServiceImpl implements EmployeesService {
 		} catch (TransactionSystemException e) {
 			logger.error("Empty field: " + e.toString());
 			throw new EmptyFieldException();
+		} catch (ConstraintViolationException e) {
+			logger.error(e.toString());
+			throw new LockerException();
 		} catch (Exception e) {
 			logger.error("Insert failed: " + e.toString());
 			throw new InsertFailedException();
@@ -119,16 +124,7 @@ public class EmployeeServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public Employee findEmployee(String name) {
-		return employeeRepo.findByName(name);
+	public List<Employee> search(Employee employee) {
+		return employeeRepo.findByName(employee.getName());
 	}
-	//
-	// @Override
-	// public List<Employee> findByLocker(Locker locker) {
-	//
-	// TypedQuery query = em.createQuery("select from Employees e where e.locker=?1
-	// ", Employee.class);
-	// query.setParameter(1, locker);
-	// return query.getResultList();
-	// }
 }

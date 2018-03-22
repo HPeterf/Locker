@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE.html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
@@ -14,7 +14,7 @@ td {
 }
 table {
     border-spacing: 5px;
-    background-color:	#dfb9d2;
+    background-color:  	#dfb9d2;
     font-family: arial, sans-serif;
     border-collapse: collapse;
 }
@@ -28,23 +28,26 @@ tr:nth-child(even) {
 	<table border="1" width="50%">
 
 		<tr>
-			<th>Employee</th>
- 			<th>Locker No.</th>
+ 			<th>Employee</th> 
+			<th>Locker No.</th>
 		</tr>
 
-		<c:forEach items="${employees}" var="employee">
+		<c:forEach items="${employees}" var="employees">
 			<tr>
-				<td><c:out value="${employee.name}" /></td>
-  				<td><c:out value="${employee.locker.number}" /></td>
+ 				<td><c:out value="${employees.name}" /></td>
+				<td><c:out value="${employees.locker.number}" /></td>
 			</tr>
- 		</c:forEach>
+			</c:forEach>
 	</table>
 </body>
 
 <br>
 <br>
+<a href="/lockermod">Reserve a new Locker</a>
+
+<br>
+<br>
 
 <a href="/employee">Add new Employee</a>
-<a href="/lockermod">Change locker number</a> 
 
 </html>

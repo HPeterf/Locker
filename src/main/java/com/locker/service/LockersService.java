@@ -13,6 +13,6 @@ public interface LockersService {
 
 	public List<Locker> listLockers();
 
-	public Locker findLocker(/* String name, */ Long number);
+	public List<Locker> search(Locker locker);
 
 }

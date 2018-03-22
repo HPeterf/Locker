@@ -20,10 +20,12 @@ public class EmployeeController {
 	private static final String ROUTING_ADDLOCKER = "/employee";
 	private static final String ROUTING_EMPLIST = "/employeelist";
 	private static final String ROUTING_DELETELOCKER = "/deletelockerwithemployee";
+	private static final String ROUTING_FINDLOCKERBYEMPLOYEENAME = "/findlockerbyemployeename";
 
 	private static final String JSP_ADDLOCKER = "employee";
 	private static final String JSP_EMPLIST = "employeelist";
 	private static final String JSP_DELETELOCKER = "deletelockerwithemployee";
+	private static final String JSP_FINDLOCKERBYEMPLOYEENAME = "findlockerbyemployeename";
 
 	private static final String POST_PARAM_ADDLOCKER_RESULT = "name";
 
@@ -81,6 +83,21 @@ public class EmployeeController {
 		}
 
 		modelAndView.addObject("result", result);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = ROUTING_FINDLOCKERBYEMPLOYEENAME, method = RequestMethod.GET)
+	public ModelAndView findLockerByEmployeeName(String name) {
+
+		ModelAndView modelAndView = new ModelAndView(JSP_FINDLOCKERBYEMPLOYEENAME);
+		Employee employee = new Employee(name);
+
+		try {
+			modelAndView.addObject("employees", empService.search(employee));
+		} catch (Exception e) {
+			logger.error("exception during findLockerByEmployeeName()", e);
+			modelAndView = new ModelAndView("/error");
+		}
 		return modelAndView;
 	}
 }

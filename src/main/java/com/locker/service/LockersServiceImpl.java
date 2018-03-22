@@ -48,22 +48,6 @@ public class LockersServiceImpl implements LockersService {
 	}
 
 	@Override
-	public Locker findLocker(Long number) {
-
-		List<Locker> lockerList = lockersRepo.findAll();
-
-		for (Locker l : lockerList) {
-			if (l.getNumber().equals(number)) {
-				return lockersRepo.findByNumber(l.getNumber());
-
-			}
-			logger.info("lockerservice: " + l.getNumber());
-			logger.info("number: " + number);
-		}
-		return lockersRepo.findByNumber(number);
-	}
-
-	@Override
 	public String addNewLocker(Employee employee, Locker locker) throws Exception {
 
 		List<Locker> lockerList = lockersRepo.findAll();
@@ -72,21 +56,27 @@ public class LockersServiceImpl implements LockersService {
 			logger.info("New locker: " + locker.getNumber());
 			if (((l.getNumber()).equals(locker.getNumber()))) {
 				throw new LockerException();
-			}
-			try {
 
-				if ((l.getEmployee().getName()).equals(employee.getName())) {
-					l.setNumber(locker.getNumber());
-					logger.info("New locker: " + locker.getNumber());
-					logger.info("l is: " + l.getNumber());
-					lockersRepo.save(l);
-				} else {
-					throw new EmployeeDoesNotExistsException();
+			} else {
+				try {
+					if ((l.getEmployee().getName()).equals(employee.getName())) {
+						l.setNumber(locker.getNumber());
+						logger.info("New locker: " + locker.getNumber());
+						logger.info("l is: " + l.getNumber());
+						lockersRepo.save(l);
+					} else {
+						throw new EmployeeDoesNotExistsException();
+					}
+				} catch (Exception e) {
+					e.toString();
 				}
-			} catch (Exception ex) {
-				ex.toString();
 			}
 		}
 		return "save successful";
+	}
+
+	@Override
+	public List<Locker> search(Locker locker) {
+		return lockersRepo.findByNumber(locker.getNumber());
 	}
 }

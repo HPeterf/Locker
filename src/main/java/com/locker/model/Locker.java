@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Entity(name = "Lockers")
@@ -23,8 +24,9 @@ public class Locker implements Serializable {
 	private long id;
 
 	// @NotNull
-	@Column(name = "number"/* unique = true */)
+	@Column(name = "number", unique = true)
 	@Min(1)
+	@Max(100)
 	private Long number;
 
 	@OneToOne(cascade = CascadeType.ALL)

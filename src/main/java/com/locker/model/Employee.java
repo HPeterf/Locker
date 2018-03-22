@@ -21,8 +21,6 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	// @NotNull
-	// @NotBlank
 	@Column(name = "name", unique = true)
 	private String name;
 

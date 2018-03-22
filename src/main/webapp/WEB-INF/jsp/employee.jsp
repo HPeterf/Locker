@@ -12,9 +12,11 @@
 		<br>
 
 		<b>Enter Employee name:</b>
+		<br>
 		<input type="text" name="name" required />
 		<br>
-		<b>Enter locker number:</b>
+		<b>Enter locker number (max.:100):</b>
+		<br>
 		<input type="number" name="number" required />
 		<p>
 			<input type="submit" name="Submit" value="Submit" />
@@ -29,7 +31,20 @@
 	<b>Search for Employee by Locker number:</b>
 	<br>
 	
-	<input type="number" name="locker" required />
+	<input type="number" name="number" required />
+	<p>
+		<input type="submit" name="Submit" value="Find Employee">
+	</p>
+	</form>
+	
+	<br>
+	<br>
+	
+	<form action="findlockerbyemployeename" method="GET">
+	<b>Search for Employee by Name:</b>
+	<br>
+	
+	<input type="text" name="name" required />
 	<p>
 		<input type="submit" name="Submit" value="Find Employee">
 	</p>
@@ -42,7 +57,7 @@
 	<b>Delete Employee:</b>
 	<br>
 	<b>Enter Employee name:</b>
-	
+	<br>
 	<input type="text" name="name" required />
 	<p>
 		<input type="submit" name="Submit" value="Delete" onclick="delete">

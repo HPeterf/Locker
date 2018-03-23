@@ -1,10 +1,15 @@
 <!DOCTYPE.html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page errorPage="employee-does-not-exist.jsp" %>
 <html>
 
 <head>
 <style>
+a:link {
+		color: purple;
+		text-decoration: none;
+}
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -21,6 +26,17 @@ table {
 tr:nth-child(even) {
     background-color: #FFF8DC;
 }
+.button {
+       font-size: 12px;
+       background-color: aqua;
+       padding: 10px; 
+       width: 120px;
+       display: inline-block;           
+       }
+.button:hover {
+       background-color: orange;
+       transition-duration: 0.1s;
+       }
 </style>
 </head>
 
@@ -43,11 +59,8 @@ tr:nth-child(even) {
 
 <br>
 <br>
-<a href="/lockermod">Reserve a new Locker</a>
-
-<br>
-<br>
-
-<a href="/employee">Add new Employee</a>
-
+<div class="buttonbox">
+<a href="/lockermod" class="button">Reserve a new Locker</a>
+<a href="/employee" class="button">Back to Main Page</a>
+</div>
 </html>

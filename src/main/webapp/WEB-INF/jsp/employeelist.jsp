@@ -5,6 +5,10 @@
 
 <head>
 <style>
+a:link {
+		color: purple;
+		text-decoration: none;
+}
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -21,6 +25,17 @@ table {
 tr:nth-child(even) {
     background-color: #FFF8DC;
 }
+.button {
+       font-size: 12px;
+       background-color: aqua;
+       padding: 10px; 
+       width: 120px;
+       display: inline-block;           
+       }
+.button:hover {
+       background-color: orange;
+       transition-duration: 0.1s;
+       }
 </style>
 </head>
 
@@ -43,8 +58,8 @@ tr:nth-child(even) {
 
 <br>
 <br>
-
-<a href="/employee">Add new Employee</a>
-<a href="/lockermod">Change locker number</a> 
-
+<div class="buttonbox">
+<a href="/employee" class="button">Back to Main Page</a>
+<a href="/lockermod" class="button">Change locker number</a> 
+</div>
 </html>

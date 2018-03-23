@@ -14,8 +14,6 @@ public interface EmployeesService {
 
 	public List<Employee> listEmployees() throws NamesException;
 
-	// public Employee findEmployee(String name);
-
 	public List<Employee> search(Employee employee);
 
 }

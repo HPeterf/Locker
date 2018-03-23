@@ -14,6 +14,6 @@ public interface LockersRepository extends JpaRepository<Locker, Long> {
 
 	public List<Locker> findByNumber(Long number);
 
-	public void delete(Long number);
+	public void deleteByNumber(Long number); // deleteByNumber()
 
 }

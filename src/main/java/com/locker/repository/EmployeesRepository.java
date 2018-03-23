@@ -17,7 +17,7 @@ public interface EmployeesRepository extends JpaRepository<Employee, Long> {
 
 	public List<Employee> findByName(String name);
 
-	@Modifying
+	@Modifying // helyettesíthető deleteByName()-mel
 	@Query("delete from Employees e where e.name = :name")
 	public void delete(@Param("name") String name);
 

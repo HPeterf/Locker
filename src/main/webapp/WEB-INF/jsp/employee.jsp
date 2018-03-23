@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
+
+<!-- TODO: utána nézni, hogyan lehet a tabulátoroktól megszabadulni eclipseben. 1 db TAB == 4 db space stíluslapok kiszervezése külön css file-ba, lehetőleg minden oldalról ugyanazt a css file-t behúzni -->
+<style>
+a:link {
+  color: purple;
+  text-decoration: none;
+}
+html, body {
+     margin: 10;
+            height: 100%;
+            color: black;
+            font-family: calibri;
+            font-size: 16px;
+            overflow: hidden;
+            }
+.button {
+       font-size: 12px;
+       background-color: aqua;
+       padding: 10px; 
+       width: 120px;
+       display: inline-block;
+       }
+.button:hover {
+       background-color: orange;
+       transition-duration: 0.1s;
+       }
+
+</style>
 </head>
 
-<body>
+<body>  <!-- spring form tag library használata -->
 	<form action="lockerresult" method="POST">
 		<b>Enter name to get a Locker:</b>
 		<br>
@@ -37,7 +64,7 @@
 	</p>
 	</form>
 	
-	<br>
+	<br> <!-- ehelyett CSS margók használata -->
 	<br>
 	
 	<form action="findlockerbyemployeename" method="GET">
@@ -53,27 +80,25 @@
 	<br>
 	<br>
 	
-	<form action="deletelockerwithemployee" method="GET">
+	<form action="deletelockerwithemployee" method="GET">  <!-- állapotváltoztató operációk esetén POST legyen a GET helyett -->
 	<b>Delete Employee:</b>
 	<br>
 	<b>Enter Employee name:</b>
 	<br>
 	<input type="text" name="name" required />
 	<p>
-		<input type="submit" name="Submit" value="Delete" onclick="delete">
+		<input type="submit" name="Submit" value="Delete" onclick="delete">  <!-- onclick helyett jquery eseménykezelő használata -->
 	</p>
 	</form>
 	
 	
 	<br>
 	<br>
-	<a href="/lockermod">Click here to change your Locker number</a>
+	<div class="buttonbox">
+	<a href="/lockermod" class="button">Change Locker number</a>
+	<a href="/employeelist" class="button">Check reserved Lockers</a>
+	</div>
 
-	<br>	
-	<br>
-	<a href="/employeelist">Check employees who already have a Locker</a>
-	<br>
-	<br>
 
 </body>
 </html>

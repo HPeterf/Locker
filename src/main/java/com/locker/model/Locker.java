@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "Lockers")
 @Table(name = "Lockers")
@@ -23,10 +24,10 @@ public class Locker implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	// @NotNull
-	@Column(name = "number", unique = true)
+	@Column(name = "number", unique = true, nullable = false)
 	@Min(1)
 	@Max(100)
+	@NotNull
 	private Long number;
 
 	@OneToOne(cascade = CascadeType.ALL)

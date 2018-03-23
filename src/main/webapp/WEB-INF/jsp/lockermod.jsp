@@ -2,6 +2,16 @@
 <html>
 
 <head>
+<style>
+html, body {
+            margin: 10;
+            height: 100%;
+            color: black;
+            font-family: calibri;
+            font-size: 16px;
+            overflow: hidden;
+            }
+</style>
 </head>
 
 <body>

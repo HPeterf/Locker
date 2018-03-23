@@ -4,15 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.locker.model.Employee;
 import com.locker.model.Locker;
 import com.locker.service.EmployeesService;
 import com.locker.service.LockersService;
+import com.locker.service.exception.LockerDoesNotExistsException;
 import com.locker.service.exception.LockerException;
 
 @Controller
@@ -84,6 +87,12 @@ public class LockerController {
 		return modelAndView;
 	}
 
+	// új osztály,a mi a nevet és a számot tartalmazza
+	// a requestmapper függvény argumentumában ez használható
+	// validációs szabályok hozzáadása (pl notempty, stb.)
+	// a requestmapper függvényben ellenőrizni, hogy a kitöltés ok-e (pl minden mező
+	// kitöltött - ld. BindingResult), ha nem, akkor mező-szintű hibaüzenettel
+	// visszakergetni a felhasználót a kiinduló oldalra
 	@RequestMapping(value = ROUTING_LOCKERRESULT, method = RequestMethod.POST)
 	public ModelAndView lockerResult(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,
 			final Long number) throws LockerException {
@@ -104,5 +113,11 @@ public class LockerController {
 		}
 		modelAndView.addObject("result", result);
 		return modelAndView;
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(value = org.springframework.http.HttpStatus.NOT_FOUND)
+	public String handleNotExistingLocker(LockerDoesNotExistsException e) {
+		return "/locker-does-not-exist";
 	}
 }

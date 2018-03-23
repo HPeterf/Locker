@@ -7,11 +7,11 @@ import com.locker.model.Locker;
 
 public interface LockersService {
 
-	public String addNewLocker(Employee employees, Locker locker) throws Exception;
+	public void assignLockerToEmployee(Employee employees, Locker locker) throws Exception;
 
 	public void deleteLocker(Locker locker) throws Exception;
 
-	public List<Locker> listLockers();
+	// public List<Locker> listLockers();
 
 	public List<Locker> search(Locker locker);
 

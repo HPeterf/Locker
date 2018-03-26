@@ -1,95 +1,75 @@
 <!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 
 <head>
 
 <!-- TODO: utána nézni, hogyan lehet a tabulátoroktól megszabadulni eclipseben. 1 db TAB == 4 db space stíluslapok kiszervezése külön css file-ba, lehetőleg minden oldalról ugyanazt a css file-t behúzni -->
-<style>
-a:link {
-  color: purple;
-  text-decoration: none;
-}
-html, body {
-     margin: 10;
-            height: 100%;
-            color: black;
-            font-family: calibri;
-            font-size: 16px;
-            overflow: hidden;
-            }
-.button {
-       font-size: 12px;
-       background-color: aqua;
-       padding: 10px; 
-       width: 120px;
-       display: inline-block;
-       }
-.button:hover {
-       background-color: orange;
-       transition-duration: 0.1s;
-       }
-
-</style>
+<link rel="stylesheet" href="../WEB-INF/css/lockerapp.css"/>
 </head>
 
 <body>  <!-- spring form tag library használata -->
-	<form action="lockerresult" method="POST">
+
 		<b>Enter name to get a Locker:</b>
-		<br>
-		<br>
-
-		<b>Enter Employee name:</b>
-		<br>
-		<input type="text" name="name" required />
-		<br>
-		<b>Enter locker number (max.:100):</b>
-		<br>
-		<input type="number" name="number" required />
-		<p>
-			<input type="submit" name="Submit" value="Submit" />
-		</p>
-
-	</form>
+	<form:form action="lockerresult" method="POST">
+		<table>
+		<tr>
+			<td><form:label path="name">Enter Employee name:</form:label></td>
+			<td><form:input path="name" required/></td>
+		</tr>
+		<tr>
+			<td><form:label path="number">Enter locker number (Max:100)</form:label></td>
+			<td><form:input path="number" required/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit"/></td>
+		</tr>	
+		</table>
+	</form:form>
 	
 	<br>
 	<br>
-	
-	<form action="findlocker" method="GET">
-	<b>Search for Employee by Locker number:</b>
-	<br>
-	
-	<input type="number" name="number" required />
-	<p>
-		<input type="submit" name="Submit" value="Find Employee">
-	</p>
-	</form>
+	<form:form action="findlocker" method="GET">
+	<table>
+		<tr>
+			<td><form:label path="number">Search for Employee by Locker number:</form:label></td>
+			<td><form:input path="number" required/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Find Employee"/></td>
+		</tr>	
+		</table>
+	</form:form>
 	
 	<br> <!-- ehelyett CSS margók használata -->
 	<br>
+
+	<form:form action="findlockerbyemployeename" method="GET">
+		<table>
+		<tr>
+			<td><form:label path="name">Search for Employee by Name:</form:label></td>
+			<td><form:input path="name" required/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Find Employee"/></td>
+		</tr>	
+		</table>
+	</form:form>
 	
-	<form action="findlockerbyemployeename" method="GET">
-	<b>Search for Employee by Name:</b>
-	<br>
-	
-	<input type="text" name="name" required />
-	<p>
-		<input type="submit" name="Submit" value="Find Employee">
-	</p>
-	</form>
-	
 	<br>
 	<br>
 	
-	<form action="deletelockerwithemployee" method="GET">  <!-- állapotváltoztató operációk esetén POST legyen a GET helyett -->
-	<b>Delete Employee:</b>
-	<br>
-	<b>Enter Employee name:</b>
-	<br>
-	<input type="text" name="name" required />
-	<p>
-		<input type="submit" name="Submit" value="Delete" onclick="delete">  <!-- onclick helyett jquery eseménykezelő használata -->
-	</p>
-	</form>
+	<form:form action="deletelockerwithemployee" method="POST">  <!-- állapotváltoztató operációk esetén POST legyen a GET helyett -->
+		<table>
+		<tr>
+			<td><form:label path="name">Delete Employee:</form:label></td>
+			<td><form:input path="name" required/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Delete Employee"/></td>
+		</tr>	
+		</table>
+	</form:form>
 	
 	
 	<br>

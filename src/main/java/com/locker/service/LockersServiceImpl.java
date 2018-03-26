@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.locker.model.Employee;
 import com.locker.model.Locker;
+import com.locker.repository.EmployeesRepository;
 import com.locker.repository.LockersRepository;
+import com.locker.service.exception.CantAssignLockerToEmployeeException;
 import com.locker.service.exception.EmployeeDoesNotExistsException;
 import com.locker.service.exception.LockerException;
 
@@ -19,66 +21,71 @@ public class LockersServiceImpl implements LockersService {
 	private static final Logger logger = LoggerFactory.getLogger(LockersServiceImpl.class);
 
 	private LockersRepository lockersRepo;
+	private EmployeesRepository employeeRepo;
+
+	@Autowired
+	public void setEmployeeRepo(EmployeesRepository employeeRepo) {
+		this.employeeRepo = employeeRepo;
+	}
 
 	@Autowired
 	public void setLockersRepo(LockersRepository lockersRepo) {
 		this.lockersRepo = lockersRepo;
 	}
 
-	// @Override // mivel nem használjuk, ez törölhető
-	// public List<Locker> listLockers() {
-	// return lockersRepo.findAll();
-	// }
-
 	@Override
 	public void deleteLocker(Locker locker) throws Exception {
 
-		// egy új deleteByNumber() függvény a repo-ba, és itt egyszerűen azt hívjuk majd
-		// fel
-		List<Locker> lockerList = lockersRepo.findAll();
+		lockersRepo.deleteByNumber(locker.getNumber());
 
-		for (Locker l : lockerList) {
-			if (l.getNumber().equals(locker.getNumber())) {
-				try {
-					lockersRepo.delete(l);
-					logger.info("locker save successful");
-				} catch (IllegalArgumentException e) {
-					logger.error("Delete failed: " + e.toString());
-				}
-			}
-		}
 	}
 
-	@Override  // assignLockerToEmployee()
-	public void assignLockerToEmployee(Employee employee, Locker locker) throws Exception {  // TODO: nem általános exception-t dobunk, csak lockerexception-t ill. az új exceptiont ami a legvégén dobódik
+	@Override // assignLockerToEmployee()
+	public void assignLockerToEmployee(Employee employee, Locker locker)
+			throws LockerException, CantAssignLockerToEmployeeException, EmployeeDoesNotExistsException {
 
 		// employe es locker kikeresese nev/number alapjan a repositoryból
-		
-		List<Locker> lockerList = lockersRepo.findAll();  // ezt mellőzzük, mert a kód összetett, hibákra hajlamosít + az összes rekor leszelektálása sok memóriát foglal, és az adatbázisszervert is terheli
-		for (Locker l : lockerList) {
-			logger.info("The locker: {}", l.getNumber());
-			logger.info("New locker: " + locker.getNumber());
-			if (((l.getNumber()).equals(locker.getNumber()))) {
-				throw new LockerException();
-			} else {
-				try {
-					if ((l.getEmployee().getName()).equals(employee.getName())) {
-						l.setNumber(locker.getNumber());
-						logger.info("New locker: " + locker.getNumber());
-						logger.info("l is: " + l.getNumber());
-						lockersRepo.save(l);
-					} else {
-						throw new EmployeeDoesNotExistsException();
-					}
-				} catch (Exception e) {
-					e.toString();
-					logger.error("assignment of locker {} to employee {} has failed", employee.getId(), locker.getNumber());
-		// TODO: saját exception dobása
-					thorw new fhdgkjshdjkshdfjkException();
-				}
-			}
+
+		// List<Locker> lockerList = lockersRepo.findAll(); // ezt mellőzzük, mert a kód
+		// összetett, hibákra hajlamosít + az
+		// összes rekor leszelektálása sok memóriát foglal, és az
+		// adatbázisszervert is terheli
+		// for (Locker l : lockerList) {
+		// logger.info("The locker: {}", l.getNumber());
+		// logger.info("New locker: " + locker.getNumber());
+		// if (((l.getNumber()).equals(locker.getNumber()))) {
+		// throw new LockerException();
+		// } else {
+		// try {
+		// if ((l.getEmployee().getName()).equals(employee.getName())) {
+		// l.setNumber(locker.getNumber());
+		// logger.info("New locker: " + locker.getNumber());
+		// logger.info("l is: " + l.getNumber());
+		// lockersRepo.save(l);
+		// } else {
+		// throw new EmployeeDoesNotExistsException();
+		// }
+		// } catch (Exception e) {
+		// e.toString();
+		// logger.error("assignment of locker {} to employee {} has failed",
+		// employee.getId(),
+		// locker.getNumber());
+		// // TODO: saját exception dobása
+		// throw new CantAssignLockerToEmployeeException();
+		// }
+		// }
+		// }
+
+		if (lockersRepo.findByNumber(locker.getNumber()) != null) {
+			throw new LockerException();
 		}
-		//return "save successful";  // nem használjuk semmire se ezt az értéket, így elég, ha void a visszaadott érték
+		if (employeeRepo.findByName(employee.getName()) != null) {
+			throw new EmployeeDoesNotExistsException();
+		} else {
+			locker.setNumber(locker.getNumber());
+			lockersRepo.save(locker);
+		}
+
 	}
 
 	@Override

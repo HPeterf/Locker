@@ -1,32 +1,27 @@
 <!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 
 <head>
-<style>
-html, body {
-            margin: 10;
-            height: 100%;
-            color: black;
-            font-family: calibri;
-            font-size: 16px;
-            overflow: hidden;
-            }
-</style>
+<link rel="stylesheet" href="../WEB-INF/css/lockerapp.css"/>
 </head>
 
 <body>
-	<form action="lockermodresult" method="POST">
 		<b>Enter Employee name:</b>
-		<br>
-		<br>
-		<input type="text" name="name" required />
-		<br>
-		<b>Enter new Locker number:</b>
-		<br>
-		<input type="number" name="number" required />
-		<p>
-		<input type="submit" name="Submit" value="Submit new Locker number" />
-		</p>
-	</form>
+	<form:form action="lockermodresult" method="POST">
+		<table>
+		<tr>
+			<td><form:label path="name">Enter Employee name:</form:label></td>
+			<td><form:input path="name" required/></td>
+		</tr>
+		<tr>
+			<td><form:label path="number">Enter new locker number (Max:100)</form:label></td>
+			<td><form:input path="number" required/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit new Locker Number"/></td>
+		</tr>	
+		</table>
+	</form:form>
 </body>
 </html>

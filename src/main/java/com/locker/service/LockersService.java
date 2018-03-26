@@ -11,8 +11,6 @@ public interface LockersService {
 
 	public void deleteLocker(Locker locker) throws Exception;
 
-	// public List<Locker> listLockers();
-
 	public List<Locker> search(Locker locker);
 
 }

@@ -8,7 +8,7 @@ import com.locker.service.exception.NamesException;
 
 public interface EmployeesService {
 
-	public String addEmployee(Employee employee, Locker locker) throws NamesException;
+	public String addNewEmployeeWithResevedLocker(Employee employee, Locker locker) throws NamesException;
 
 	public void deleteEmployee(Employee employee) throws Exception;
 

@@ -5,32 +5,7 @@
 
 <html>
 <head>
-<style>
-html, body {
-            margin: 10;
-            height: 100%;
-            color: black;
-            font-family: calibri;
-            font-size: 16px;
-            overflow: hidden;
-            }
-a:link {
-		color: purple;
-		text-decoration: none;
-}
-.button {
-       font-size: 12px;
-       background-color: aqua;
-       padding: 10px; 
-       width: 120px;
-       display: inline-block;           
-       }
-.button:hover {
-       background-color: orange;
-       transition-duration: 0.1s;
-       }
-
-</style>
+<link rel="stylesheet" href="../WEB-INF/css/lockerapp.css"/>
 </head>
 
 <body>

@@ -1,0 +1,45 @@
+html, body {
+            margin: 10;
+            height: 100%;
+            color: black;
+            font-family: calibri;
+            font-size: 16px;
+            overflow: hidden;
+            }
+a:link {
+		color: purple;
+		text-decoration: none;
+}
+.button {
+       font-size: 12px;
+       background-color: aqua;
+       padding: 10px; 
+       width: 120px;
+       display: inline-block;           
+       }
+.button:hover {
+       background-color: orange;
+       transition-duration: 0.1s;
+       }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td {
+    text-align: center;
+}
+table {
+    border-spacing: 5px;
+    background-color:	#dfb9d2;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+}
+tr:nth-child(even) {
+    background-color: #FFF8DC;
+}
+form:form {
+	margin-top:10px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+}

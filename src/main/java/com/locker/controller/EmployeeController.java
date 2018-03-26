@@ -65,15 +65,9 @@ public class EmployeeController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = ROUTING_ADDLOCKER, method = RequestMethod.GET)
-	public ModelAndView addLocker() {
-		ModelAndView modelAndView = new ModelAndView(JSP_ADDLOCKER);
-		return modelAndView;
+	public String addLocker() {
+		return JSP_ADDLOCKER;
 	}
-	// mivel a fenti mapping egy síma view-ra irányít, így írhatjuk rövidebben is:
-	// public String addLocker() {
-	// return JSP_ADDLOCKER;
-	// }
 
 	@RequestMapping(value = ROUTING_DELETELOCKER, method = RequestMethod.GET)
 	public ModelAndView deleteLockerWithEmployee(@RequestParam(value = POST_PARAM_ADDLOCKER_RESULT) final String name,

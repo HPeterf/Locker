@@ -2,42 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="employee-does-not-exist.jsp" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 
 <head>
-<style>
-a:link {
-		color: purple;
-		text-decoration: none;
-}
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-td {
-    text-align: center;
-}
-table {
-    border-spacing: 5px;
-    background-color:  	#dfb9d2;
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-}
-tr:nth-child(even) {
-    background-color: #FFF8DC;
-}
-.button {
-       font-size: 12px;
-       background-color: aqua;
-       padding: 10px; 
-       width: 120px;
-       display: inline-block;           
-       }
-.button:hover {
-       background-color: orange;
-       transition-duration: 0.1s;
-       }
-</style>
+<link rel="stylesheet" href="../WEB-INF/css/lockerapp.css"/>
 </head>
 
 <body>

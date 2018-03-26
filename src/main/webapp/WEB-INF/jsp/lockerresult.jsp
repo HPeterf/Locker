@@ -1,35 +1,10 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 
 <head>
-<style>
-a:link {
-		color: purple;
-		text-decoration: none;
-}
-html, body {
-            margin: 10;
-            height: 100%;
-            color: black;
-            font-family: calibri;
-            font-size: 16px;
-            overflow: hidden;
-            }
-.button {
-       font-size: 12px;
-       background-color: aqua;
-       padding: 10px; 
-       width: 120px;
-       display: inline-block;           
-       }
-.button:hover {
-       background-color: orange;
-       transition-duration: 0.1s;
-       }
-</style>
-
+<link rel="stylesheet" href="../WEB-INF/css/lockerapp.css"/>
 </head>
 
 <body>
